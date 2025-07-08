@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>甚幸学社 | Lucky Even Academy</title>
+    <style>
+        :root {
+            --le-gold: #FFD700;       /* 锦鲤金 */
+            --le-jade: #00A86B;       /* 翡翠绿 */
+            --le-cloud: #F0F8FF;      /* 祥云白 */
+            --le-luck: #E6E6FA;       /* 幸运紫 */
+            --le-red: #FF6B6B;        /* 御守红 */
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: radial-gradient(circle, var(--le-cloud), #ffffff);
+            font-family: 'LXGW WenKai', 'Source Han Sans', sans-serif;
+            color: #2c3e50;
+            line-height: 1.7;
+            position: relative;
+            overflow-x: hidden;
+        }
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" opacity="0.05"><path d="M20,20 Q40,5 50,30 T80,20" fill="none" stroke="%2300A86B" stroke-width="0.5"/></svg>');
+            pointer-events: none;
+            z-index: -1;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* === 头部样式 === */
+        header {
+            text-align: center;
+            padding: 5rem 0 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .logo {
+            font-size: 4.5rem;
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+        .cn {
+            color: var(--le-jade);
+            font-weight: 700;
+            text-shadow: 3px 3px 0 rgba(0,0,0,0.05);
+            position: relative;
+            z-index: 2;
+        }
+        .en {
+            color: var(--le-gold);
+            font-size: 2.5rem;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            letter-spacing: 3px;
+            margin-top: -15px;
+            display: block;
+        }
+        .slogan {
+            font-size: 1.3rem;
+            color: #7f8c8d;
+            margin-top: 1.5rem;
+            position: relative;
+            display: inline-block;
+            padding: 0 20px;
+        }
+        .slogan::before, .slogan::after {
+            content: "✧";
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--le-gold);
+        }
+        .slogan::before { left: 0; }
+        .slogan::after { right: 0; }
+        
+        /* 锦鲤动画 */
+        .koi {
+            position: absolute;
+            width: 120px;
+            height: 60px;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 50"><path d="M10,25 Q30,5 50,25 T90,25" fill="none" stroke="%23FF6B6B" stroke-width="2"/><circle cx="85" cy="25" r="3" fill="%23FFD700"/></svg>') no-repeat;
+            background-size: contain;
+            filter: drop-shadow(0 0 3px rgba(255,215,0,0.5));
+            z-index: 1;
+        }
+
+        /* === 主要内容 === */
+        main {
+            padding: 2rem 0 4rem;
+        }
+        section {
+            margin-bottom: 3.5rem;
+        }
+        h2 {
+            font-size: 2rem;
+            margin-bottom: 1.8rem;
+            color: var(--le-jade);
+            position: relative;
+            padding-left: 25px;
+            font-weight: 500;
+        }
+        h2::before {
+            content: "🍀";
+            position: absolute;
+            left: 0;
+            top: -5px;
+        }
+        
+        /* 运气研究区域 */
+        .research-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+        }
+        .research-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(0, 168, 107, 0.1);
+            text-align: center;
+        }
+        .research-card::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, var(--le-jade), var(--le-gold));
+        }
+        .research-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+        }
+        .card-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: var(--le-gold);
+            text-shadow: 0 0 10px rgba(255,215,0,0.3);
+        }
+        .research-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--le-jade);
+        }
+        .research-card p {
+            color: #546e7a;
+            margin-bottom: 25px;
+        }
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: linear-gradient(135deg, var(--le-jade), var(--le-gold));
+            color: white;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+            border: none;
+            box-shadow: 0 5px 15px rgba(0, 168, 107, 0.3);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        .btn::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--le-gold), var(--le-jade));
+            opacity: 0;
+            transition: opacity 0.3s;
+            z-index: -1;
+        }
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 168, 107, 0.4);
+        }
+        .btn:hover::before {
+            opacity: 1;
+        }
+        
+        /* 运气指数仪表盘 */
+        .luck-dashboard {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            text-align: center;
+            margin: 40px 0;
+            border: 1px solid rgba(0, 168, 107, 0.1);
+        }
+        .luck-gauge {
+            width: 200px;
+            height: 200px;
+            margin: 0 auto 30px;
+            position: relative;
+        }
+        .gauge-bg {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: conic-gradient(
+                var(--le-red) 0% 20%,
+                var(--le-gold) 20% 70%,
+                var(--le-jade) 70% 100%
+            );
+            position: relative;
+            overflow: hidden;
+        }
+        .gauge-center {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            width: 160px;
+            height: 160px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            color: var(--le-jade);
+            font-weight: bold;
+        }
+        .luck-needle {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            width: 4px;
+            height: 100px;
+            background: #2c3e50;
+            transform-origin: bottom center;
+            transform: translateX(-50%) rotate(120deg);
+            transition: transform 2s ease-out;
+        }
+        .luck-needle::before {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 15px;
+            height: 15px;
+            background: #2c3e50;
+            border-radius: 50%;
+        }
+        .luck-label {
+            font-size: 1.1rem;
+            margin-top: 20px;
+            color: #7f8c8d;
+        }
+        
+        /* 幸运故事 */
+        .story-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 25px;
+        }
+        .story-card {
+            flex: 1;
+            min-width: 300px;
+            background: white;
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.07);
+            position: relative;
+            border-top: 4px solid var(--le-gold);
+        }
+        .story-card::before {
+            content: """;
+            position: absolute;
+            top: 15px;
+            left: 20px;
+            font-size: 80px;
+            color: rgba(0, 168, 107, 0.1);
+            font-family: Georgia, serif;
+            line-height: 1;
+            z-index: 0;
+        }
+        .story-content {
+            position: relative;
+            z-index: 1;
+            color: #546e7a;
+            font-style: italic;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+        .story-author {
+            text-align: right;
+            color: var(--le-jade);
+            font-weight: 500;
+        }
+        
+        /* 页脚 */
+        footer {
+            text-align: center;
+            padding: 3rem 0 2rem;
+            color: #7f8c8d;
+            font-size: 0.95rem;
+            position: relative;
+        }
+        .footer-links {
+            margin: 25px 0;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .footer-links a {
+            color: var(--le-jade);
+            text-decoration: none;
+            transition: all 0.3s;
+            padding: 8px 15px;
+            border-radius: 30px;
+            background: rgba(0, 168, 107, 0.08);
+        }
+        .footer-links a:hover {
+            background: rgba(0, 168, 107, 0.15);
+            color: #006442;
+        }
+        .footer-quote {
+            max-width: 700px;
+            margin: 20px auto;
+            font-size: 1.1rem;
+            color: var(--le-jade);
+            line-height: 1.8;
+            padding: 20px;
+            border-radius: 15px;
+            background: rgba(255, 215, 0, 0.05);
+            border: 1px solid rgba(0, 168, 107, 0.1);
+        }
+        .lucky-cat {
+            font-size: 3rem;
+            margin: 15px 0;
+            display: block;
+        }
+        
+        /* 响应式 */
+        @media (max-width: 768px) {
+            .logo {
+                font-size: 3.5rem;
+            }
+            .en {
+                font-size: 1.8rem;
+            }
+            .research-grid {
+                grid-template-columns: 1fr;
+            }
+            .luck-dashboard {
+                padding: 25px;
+            }
+            .luck-gauge {
+                width: 150px;
+                height: 150px;
+            }
+            .gauge-center {
+                top: 15px;
+                left: 15px;
+                width: 120px;
+                height: 120px;
+                font-size: 2rem;
+            }
+            .luck-needle {
+                height: 75px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 头部 -->
+        <header>
+            <h1 class="logo">
+                <span class="cn">甚幸</span>
+                <span class="en">Lucky Even</span>
+            </h1>
+            <p class="slogan">运气是强者的谦辞，是弱者的铠甲</p>
+            
+            <!-- 锦鲤动画 -->
+            <div class="koi" id="koi1"></div>
+            <div class="koi" id="koi2"></div>
+            <div class="koi" id="koi3"></div>
+        </header>
+
+        <main>
+            <!-- 核心研究领域 -->
+            <section id="research">
+                <h2>气运研究工程</h2>
+                <div class="research-grid">
+                    <div class="research-card">
+                        <div class="card-icon">🎲</div>
+                        <h3>学术幸存者偏差</h3>
+                        <p>探究为何导师总忽略你论文中80%的漏洞——当咖啡渍恰好覆盖关键错误页时的量子幸运态</p>
+                        <a href="#" class="btn">查看气运报告</a>
+                    </div>
+                    
+                    <div class="research-card">
+                        <div class="card-icon">📉</div>
+                        <h3>努力-运气转换率</h3>
+                        <p>建立"临时抱佛脚能量值"与"考试难度波动"的数学模型：如何用1小时复习触发奇迹</p>
+                        <a href="#" class="btn">查看转换公式</a>
+                    </div>
+                    
+                    <div class="research-card">
+                        <div class="card-icon">🛐</div>
+                        <h3>应急信仰系统工程</h3>
+                        <p>从孔子到奥特曼的跨维度祈愿效果对比：答辩现场该默念哪位神祇的性价比最高</p>
+                        <a href="#" class="btn">查看神明排行榜</a>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- 今日运气指数 -->
+            <section class="luck-dashboard">
+                <h2>今日学术气运指数</h2>
+                <div class="luck-gauge">
+                    <div class="gauge-bg"></div>
+                    <div class="gauge-center" id="luck-value">72%</div>
+                    <div class="luck-needle" id="luck-needle"></div>
+                </div>
+                <p class="luck-label">指数说明：>80%宜交论文，<50%宜装病</p>
+                <a href="#" class="btn" style="margin-top: 20px;">重新测运</a>
+            </section>
+            
+            <!-- 幸者故事集 -->
+            <section id="stories">
+                <h2>幸者故事集</h2>
+                <div class="story-container">
+                    <div class="story-card">
+                        <p class="story-content">“查重率29.8%压线过关！前一晚用甚幸学社的《关键词替换大法》改了47个词——别问逻辑，问就是气运加身！”</p>
+                        <p class="story-author">—— 文学院 · 张锦鲤</p>
+                    </div>
+                    
+                    <div class="story-card">
+                        <p class="story-content">“代码全是bug，答辩演示时电脑突然蓝屏。重启后居然跑通了！教授说'这是奇迹'，给了B+。建议贵社研究电子设备演技学。”</p>
+                        <p class="story-author">—— 计算机系 · 码侥幸</p>
+                    </div>
+                    
+                    <div class="story-card">
+                        <p class="story-content">“导师邮件问进度，手滑把猫片当附件发出。结果导师回：'猫很可爱，论文延两周'。贵社的《错误邮件救星指南》诚不欺我！”</p>
+                        <p class="story-author">—— 生物系 · 喵帕斯</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+        
+        <footer>
+            <div class="footer-links">
+                <a href="#">气运研究</a>
+                <a href="#">幸者联盟</a>
+                <a href="#">转锦鲤服务</a>
+                <a href="https://ne.edu.kg" target="_blank">未及研究院</a>
+            </div>
+            
+            <div class="footer-quote">
+                <span class="lucky-cat">🐱</span>
+                <p>"在甚幸学社，我们不相信努力必然成功——<br>我们只研究如何让偶然的幸运，<br>变成可复制的必然"</p>
+            </div>
+            
+            <p>©2025 甚幸学社 | 学术盟友：<a href="https://ne.edu.kg" target="_blank">未及研究院</a></p>
+            <p style="margin-top: 10px; font-size: 0.85rem; opacity: 0.7;">* 本机构邮箱 <b>@le.edu.kg</b> 适用于教育福利认证，实际学术效果随缘</p>
+        </footer>
+    </div>
+
+    <script>
+        // 锦鲤游动动画
+        function animateKoi() {
+            const kois = [
+                { id: "koi1", x: -150, y: 20, duration: 40 },
+                { id: "koi2", x: -120, y: 40, duration: 50 },
+                { id: "koi3", x: -180, y: 60, duration: 45 }
+            ];
+            
+            kois.forEach(koi => {
+                const element = document.getElementById(koi.id);
+                element.style.top = `${koi.y}%`;
+                element.style.left = `${koi.x}px`;
+                
+                // 随机游动路径
+                const animate = () => {
+                    const screenWidth = window.innerWidth;
+                    if (parseInt(element.style.left) > screenWidth + 100) {
+                        element.style.left = "-150px";
+                        element.style.top = `${20 + Math.random() * 60}%`;
+                    }
+                    
+                    const currentLeft = parseInt(element.style.left);
+                    element.style.left = `${currentLeft + 1}px`;
+                    setTimeout(animate, koi.duration);
+                };
+                
+                animate();
+            });
+        }
+        
+        // 运气指数生成器
+        function generateLuck() {
+            const valueEl = document.getElementById('luck-value');
+            const needleEl = document.getElementById('luck-needle');
+            
+            // 生成随机运气值（30-95）
+            const luckValue = 30 + Math.floor(Math.random() * 65);
+            valueEl.textContent = `${luckValue}%`;
+            
+            // 计算指针角度（0%=240deg, 100%=60deg）
+            const angle = 240 - (luckValue * 180 / 100);
+            needleEl.style.transform = `translateX(-50%) rotate(${angle}deg)`;
+            
+            // 根据运气值改变文字颜色
+            if (luckValue > 80) {
+                valueEl.style.color = "var(--le-jade)";
+            } else if (luckValue > 50) {
+                valueEl.style.color = "var(--le-gold)";
+            } else {
+                valueEl.style.color = "var(--le-red)";
+            }
+        }
+        
+        // 为按钮添加特效
+        function addButtonEffects() {
+            const buttons = document.querySelectorAll('.btn');
+            buttons.forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    // 添加点击粒子效果
+                    for (let i = 0; i < 8; i++) {
+                        const particle = document.createElement('div');
+                        particle.style.position = 'absolute';
+                        particle.style.width = '8px';
+                        particle.style.height = '8px';
+                        particle.style.backgroundColor = i % 2 ? 'var(--le-gold)' : 'var(--le-jade)';
+                        particle.style.borderRadius = '50%';
+                        particle.style.pointerEvents = 'none';
+                        
+                        const rect = this.getBoundingClientRect();
+                        particle.style.left = `${rect.left + rect.width/2}px`;
+                        particle.style.top = `${rect.top + rect.height/2}px`;
+                        
+                        document.body.appendChild(particle);
+                        
+                        // 随机方向动画
+                        const angle = Math.random() * Math.PI * 2;
+                        const distance = 30 + Math.random() * 50;
+                        const x = Math.cos(angle) * distance;
+                        const y = Math.sin(angle) * distance;
+                        
+                        particle.animate([
+                            { transform: 'translate(0,0)', opacity: 1 },
+                            { transform: `translate(${x}px, ${y}px)`, opacity: 0 }
+                        ], {
+                            duration: 800,
+                            easing: 'ease-out',
+                            fill: 'forwards'
+                        });
+                        
+                        // 移除元素
+                        setTimeout(() => {
+                            particle.remove();
+                        }, 800);
+                    }
+                });
+            });
+        }
+        
+        // 初始化
+        window.onload = function() {
+            animateKoi();
+            generateLuck();
+            addButtonEffects();
+            
+            // 点击重新测运按钮
+            document.querySelector('.luck-dashboard .btn').addEventListener('click', function(e) {
+                e.preventDefault();
+                generateLuck();
+                
+                // 添加庆祝效果
+                const gauge = document.querySelector('.gauge-center');
+                gauge.animate([
+                    { transform: 'scale(1)' },
+                    { transform: 'scale(1.2)' },
+                    { transform: 'scale(1)' }
+                ], {
+                    duration: 500,
+                    iterations: 2
+                });
+            });
+        };
+    </script>
+</body>
+</html>
