@@ -111,14 +111,17 @@
             margin-bottom: 1.8rem;
             color: var(--le-jade);
             position: relative;
-            padding-left: 25px;
+            /* 修正：增加左侧空间 */
+            padding-left: 45px;
             font-weight: 500;
         }
         h2::before {
             content: "🍀";
             position: absolute;
-            left: 0;
-            top: -5px;
+            /* 修正：调整图标位置 */
+            left: 10px;
+            top: 3px;
+            font-size: 1.5rem;
         }
         
         /* 运气研究区域 */
@@ -384,6 +387,16 @@
             }
             .luck-needle {
                 height: 75px;
+            }
+            /* 移动端标题调整 */
+            h2 {
+                padding-left: 40px;
+                font-size: 1.8rem;
+            }
+            h2::before {
+                left: 8px;
+                top: 5px;
+                font-size: 1.3rem;
             }
         }
     </style>
